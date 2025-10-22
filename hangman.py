@@ -1,47 +1,63 @@
 import random
 
-with open('dictionary', 'r', encoding='UTF-8') as file:
+with open('dictionary.txt', 'r', encoding='UTF-8') as file:
     content = file.read()
 
 word_list = content.split(',')
 
 difficulty_settings = {
-    "easy": 10,
-    "medium": 6,
-    "hard": 4
+    'easy': 10,
+    'medium': 6,
+    'hard': 4
 }
-# make a list for guessed letters
-def letters_display(word,human_choice):
-    verification = True
-    index = word.find(human_choice)
-    word[index] = human_choice
+
+
 def play_hangman():
 
     word = random.choice(word_list)
+    print(word)
     word_display = ['_' for letters in word]
-
-    for letters in word:  
-        correct_letters = letters
-    print=("Choose the difficulty: easy / medium / hard")
+    guessed_letters = []
+    correct_letters = []
+    for letters in word:
+        correct_letters.append(letters)
+    print("Choose the difficulty: ")
 
     while True:
-        difficulty = input("difficulty: ").lower
-        if difficulty in difficulty_settings:
+       
+        difficulty = input("difficulty: ").lower()
+        print(difficulty)
+        if difficulty in difficulty_settings.keys():
             break
-        print("\nInvalid choice, try again")
+        print("Invalid choice, try again")
+
     
-    print(word_display)
+    
     lives = difficulty_settings[difficulty]
-    print("\nThe game starts 🎮!!") 
+    print("\n The game starts 🎮!!")
 
-    while lives > 0 : 
-        human_choice = input("Choose a letter : ").lower
-        while 'a'> human_choice >'z':
-            print("the character you entered is invalid, try again")
-            human_choice = input("Choose a letter : ").lower
+    while lives > 0:
+        for i in word_display:
+            print(i,end=" ")
+        print(f"You have {lives}/n")
+        human_choice = input("Choose a letter : \n").lower()
+        
+        while 'a' > human_choice and human_choice > 'z':
+            print("/nThe character you entered is invalid, try again")
+            human_choice = input("/nChoose a letter : ").lower()
+
         if human_choice in correct_letters:
-            letters_display(word, human_choice)
-
-
             
+            guessed_letters.append(human_choice)
 
+            for index in range(len(word)):
+                if word[index]==human_choice:
+                    word_display[index] = human_choice
+
+
+        else:
+            lives = lives - 1
+            guessed_letters.append(human_choice)
+        print(f" Letters guessed {guessed_letters}")
+
+play_hangman()           
