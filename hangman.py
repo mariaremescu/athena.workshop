@@ -61,7 +61,7 @@ def play_hangman():
             lives = lives - 1
             guessed_letters.append(human_choice)
         print(f" Letters guessed {guessed_letters}")
-
+        
     if variable == False:
         print("You lost😞😞")
         choice = input("Do you want to play again😊?? Y/N ").lower()
