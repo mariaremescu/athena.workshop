@@ -28,7 +28,6 @@ def play_hangman():
         if difficulty in difficulty_settings.keys():
             break
         print("\nInvalid choice, try again")
-
     lives = difficulty_settings[difficulty]
     print("\n!! The game starts 🎮!!")
     variable = False
