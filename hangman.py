@@ -31,14 +31,17 @@ def play_hangman():
 
     lives = difficulty_settings[difficulty]
     print("\n!! The game starts 🎮!!")
-    variable=False
-    while lives > 0 and variable==False:
+    variable = False
+    while lives > 0 and variable == False:
         for i in word_display:
             print(i, end=" ")
         print(f"\nYou have {lives} lives\n")
         human_choice = input("Choose a letter : \n").lower()
+        while len(human_choice) != 1:
+            print("Too much characters, try again \n")
+            human_choice = input("Choose a letter : \n").lower()
 
-        while 'a' > human_choice and human_choice > 'z':
+        while "a" > human_choice or "z" < human_choice:
             print("\nThe character you entered is invalid, try again")
             human_choice = input("\nChoose a letter : ").lower()
 
@@ -49,8 +52,8 @@ def play_hangman():
                     word_display[index] = human_choice
                     variable = True
                     for i in range(len(word_display)):
-                            if '_' in word_display[i]:
-                                variable = False
+                        if '_' in word_display[i]:
+                            variable = False
                     if variable == True:
                         print("You won!!🎉🎉✨")
                         break
@@ -59,16 +62,14 @@ def play_hangman():
             lives = lives - 1
             guessed_letters.append(human_choice)
         print(f" Letters guessed {guessed_letters}")
-    
-   
+
     if variable == False:
-        print("You lost😞😞") 
+        print("You lost😞😞")
         choice = input("Do you want to play again😊?? Y/N ").lower()
         if choice == 'n':
             print("💔")
         elif choice == 'y':
             play_hangman()
-
 
 
 play_hangman()
